@@ -82,8 +82,6 @@ router.delete('/deletenote/:id', fetchuser, async (req, res) => {
 
     try {
 
-        const { title, description, tag } = req.body;
-
         // Find the note to be deleted
         let note = await Note.findById(req.params.id);
         if(!note){return res.status(404).send("Note not found")}
