@@ -3,7 +3,8 @@ const User = require('../models/User');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+var jwt = require('jsonwebtoken');
+var fetchuser = require('../middleware/fetchuser');
 
 const JWT_SECRET = 'Farmanisagoodb$oy';
 
@@ -13,7 +14,7 @@ router.post('/createuser', [
     body('email', 'Enter a valid email').isEmail(),
     body('password', 'Password must be atleast 5 digits').isLength({ min: 5 }),
 ], async (req, res) => {
-    // Check for errors
+    // Check for errors after validating
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -54,7 +55,7 @@ router.post('/login', [
     body('email', 'Enter a valid email').isEmail(),
     body('password', 'Password cannot be blank').exists(),
 ], async (req, res) => {
-    // Check for errors
+    // Check for errors after validating
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -89,15 +90,11 @@ router.post('/login', [
 
 // ROUTE 3: Get logged in user details using: POST "/api/auth/getuser". Requires auth
 router.post('/getuser', fetchuser, async (req, res) => {
-    // Check for errors
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
 
     try {
-        userId = todo;
-        const user = await User.findById(userId).select("-password")
+        let userId = req.user.id;
+        let user = await User.findById(userId).select("-password");
+        res.send(user);
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");
