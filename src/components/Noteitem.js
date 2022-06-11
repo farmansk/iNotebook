@@ -13,8 +13,6 @@ const Noteitem = (props) => {
         deleteref.current.click();
     }
 
-    const handleConfirmDelete = () => { deleteNote(note._id) }
-
     return (
         <>
             <button type="button" id="deletebtn" ref={deleteref} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#staticBackdropdelete">
@@ -32,7 +30,7 @@ const Noteitem = (props) => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                            <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={handleConfirmDelete}>Yes</button>
+                            <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={() => { deleteNote(note._id) }}>Yes</button>
                         </div>
                     </div>
                 </div>
