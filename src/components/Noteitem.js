@@ -3,7 +3,7 @@ import contextValue from '../context/notes/NoteContext'
 
 const Noteitem = (props) => {
 
-    const { note, updateNote } = props;
+    const { note, updateNote, showAlert } = props;
     const context = useContext(contextValue);
     const { deleteNote } = context;
 
@@ -15,6 +15,7 @@ const Noteitem = (props) => {
 
     const handleConfirmDelete = () => {
         deleteNote(note._id);
+        showAlert("Deleted Note Successfully", "success")
     }
 
     return (
@@ -34,7 +35,7 @@ const Noteitem = (props) => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                            <button type="button" className="btn btn-primary" id="deletebtn" data-bs-dismiss="modal" onClick={handleConfirmDelete}>Yes</button>
+                            <button type="button" className="btn btn-danger" id="deletebtn" data-bs-dismiss="modal" onClick={handleConfirmDelete}>Yes</button>
                         </div>
                     </div>
                 </div>

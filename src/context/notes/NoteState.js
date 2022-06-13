@@ -13,7 +13,7 @@ const NoteState = (props) => {
     const response = await fetch(`${host}/api/notes/fetchallnotes`, {
       method: 'GET',
       headers: {
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJhMGJkZDM5NDUwNTBhYWMyMmVjMzQzIn0sImlhdCI6MTY1NDc2NjQ2M30.ZC42Y3IyATyNfaAmjDGvYlMlfXhpM06mfTZgZU9p6yM'
+        'auth-token': localStorage.getItem('token')
       }
     });
     const json = await response.json();
@@ -28,7 +28,7 @@ const NoteState = (props) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJhMGJkZDM5NDUwNTBhYWMyMmVjMzQzIn0sImlhdCI6MTY1NDc2NjQ2M30.ZC42Y3IyATyNfaAmjDGvYlMlfXhpM06mfTZgZU9p6yM'
+        'auth-token': localStorage.getItem('token')
       },
       body: JSON.stringify({ title, description, tag })
     });
@@ -42,9 +42,10 @@ const NoteState = (props) => {
     const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
       method: 'DELETE',
       headers: {
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJhMGJkZDM5NDUwNTBhYWMyMmVjMzQzIn0sImlhdCI6MTY1NDc2NjQ2M30.ZC42Y3IyATyNfaAmjDGvYlMlfXhpM06mfTZgZU9p6yM'
+        'auth-token': localStorage.getItem('token')
       }
     });
+     // eslint-disable-next-line
     const json = await response.json();
 
     // Logic to delete in frontend
@@ -59,10 +60,11 @@ const NoteState = (props) => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJhMGJkZDM5NDUwNTBhYWMyMmVjMzQzIn0sImlhdCI6MTY1NDc2NjQ2M30.ZC42Y3IyATyNfaAmjDGvYlMlfXhpM06mfTZgZU9p6yM'
+        'auth-token': localStorage.getItem('token')
       },
       body: JSON.stringify({ title, description, tag })
     });
+     // eslint-disable-next-line
     const json = await response.json();
 
     // Logic to edit in frontend

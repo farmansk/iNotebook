@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 
-const SignUp = () => {
+const SignUp = (props) => {
 
     const host = "http://localhost:5000"
     var wrongpassline;
@@ -27,9 +27,10 @@ const SignUp = () => {
             // Save the authtoken and redirect
             localStorage.setItem('token', json.authtoken);
             navigate("/");
+            props.showAlert("Created Your Account Successfuly", "success");
         }
         else {
-            alert("Sorry, an user with this email already exists");
+            props.showAlert("Sorry, an user with this email already exists", "danger");
         }
 
     }
@@ -42,9 +43,10 @@ const SignUp = () => {
     }
 
     return (
-        <div>
+        <div className="container mt-3">
+            <h2>Create an Account</h2>
             <form onSubmit={handleSubmit}>
-                <div className="mb-3">
+                <div className="my-3">
                     <label htmlFor="name" className="form-label">Name</label>
                     <input type="name" className="form-control" id="name" name="name" value={credentials.name} onChange={onChange} />
                 </div>

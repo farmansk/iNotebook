@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import contextValue from '../context/notes/NoteContext'
 
-const AddNote = () => {
+const AddNote = (props) => {
 
     const context = useContext(contextValue);
     const { addNote } = context;
@@ -11,6 +11,7 @@ const AddNote = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         addNote(note.title, note.description, note.tag);
+        props.showAlert("Added Note Successfully", "success")
         setNote({ title: "", description: "", tag: "" })
     }
 
